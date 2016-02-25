@@ -1,0 +1,40 @@
+TODO list for vc4-gcc
+=====================
+
+Insn semantics
+--------------
+
+Check unordered/overflow-flag semantics for floating-point comparisons.
+
+Check sign/zero-extension semantics for 16-bit immediate insn variants (arithmetic vs. logic?).
+
+ALU-LSR insn variants ("test5/test6/test7" in arch file)
+
+Is stsh really ldsb?
+
+Binutils
+--------
+
+Fix push/pop lr/pc-only encodings. [DONE]
+
+Use macro insns more where appropriate: try to fix "ld/st rN,offset(rM)" disassembly.
+
+Fix relaxation for "ld/st rN,offset(rM)" insns.
+
+Use .s/.m/.l/.x suffixes on insns, and have macro insns for suffix-less variants (with relaxation).
+
+Add support for vector insns.
+
+Support official insn spellings (for push/pop, etc.)
+
+Newlib
+------
+
+Add SDRAM/PLL configuration for running on hardware.
+
+GCC
+---
+
+Different memory models for "ld/st rN, <symbol>"? Currently limited to 64MB program size because of pcrel addressing with 27-bit relative offset.
+
+GP addressing? (Small data?)
