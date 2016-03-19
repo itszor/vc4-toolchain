@@ -1,0 +1,15 @@
+[submodule "binutils-vc4"]
+	path = binutils-vc4
+	url = jules@magenta:~/code/binutils-vc4.git
+[submodule "gcc-vc4"]
+	path = gcc-vc4
+	url = jules@magenta:~/code/gcc-vc4.git
+[submodule "newlib"]
+	path = newlib
+	url = jules@magenta:~/code/newlib.git
+[submodule "resim"]
+	path = resim
+	url = jules@magenta:~/code/resim.git
+[submodule "cgen"]
+	path = cgen
+	url = jules@magenta:~/code/cgen.git
