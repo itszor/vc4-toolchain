@@ -67,11 +67,14 @@ Thanks
 ------
 
 Herman Hermitage for RE'ing stuff.
+
 Mark Marshall, Mathias Gottschlag and Tiernan Hubble for binutils bits.
+
 David Given for GCC bits.
+
 Mathias Gottschlag for resim.
 
-plus probably loads of other people involved in the VideoCore4 reverse-engineering effort.
+plus probably loads of other people involved in the VideoCore4 reverse-engineering effort!
 
 Can I use this to do XYZ with my Raspberry Pi?
 ----------------------------------------------
