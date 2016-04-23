@@ -62,3 +62,18 @@ Hello world!
 ```
 
 Console output uses an emulated mini-UART, so in theory might work on real hardware also, if you have the right serial cable.
+
+Thanks
+------
+
+Herman Hermitage for RE'ing stuff.
+Mark Marshall, Mathias Gottschlag and Tiernan Hubble for binutils bits.
+David Given for GCC bits.
+Mathias Gottschlag for resim.
+
+plus probably loads of other people involved in the VideoCore4 reverse-engineering effort.
+
+Can I use this to do XYZ with my Raspberry Pi?
+----------------------------------------------
+
+Probably not without significant effort... good luck!
