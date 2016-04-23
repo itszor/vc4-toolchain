@@ -26,7 +26,7 @@ Then build the compiler with:
 $ ./build-all.sh 2>&1 | tee build.log
 ```
 
-This will give you a vc4-targeting toolchain in `$(pwd)/prefix/bin`.
+This will give you a vc4-targeted toolchain in `$(pwd)/prefix/bin`. Only the C compiler is currently supported, no other languages.
 
 Running tests
 -------------
@@ -37,7 +37,17 @@ Test your newly-built compiler with:
 $ ./check.sh 2>&1 | tee check.log
 ```
 
-There should only be a handful of failures (~30 or so).
+There should only be a handful of failures (~29 or so):
+
+```
+                === gcc Summary ===
+
+# of expected passes            62463
+# of unexpected failures        29
+# of unexpected successes       2
+# of expected failures          94
+# of unsupported tests          1444
+```
 
 Compiling stuff
 ---------------
