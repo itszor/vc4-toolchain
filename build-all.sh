@@ -3,7 +3,7 @@
 set -e
 
 SCRIPTDIR="$(dirname "$0")"
-HERE="$(readlink -f "$SCRIPTDIR")"
+HERE="$(cd "$SCRIPTDIR" && pwd)"
 PARALLEL="-j 2"
 
 # Remove this if you don't want to mess with CGEN.
