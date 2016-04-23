@@ -6,6 +6,17 @@ SCRIPTDIR="$(dirname "$0")"
 HERE="$(readlink -f "$SCRIPTDIR")"
 PARALLEL="-j 2"
 
+# Remove this if you don't want to mess with CGEN.
+WITHCGEN="--enable-cgen-maint"
+# WITHCGEN=
+
+if [ "$WITHCGEN" ] && ! [ -h "$HERE"/binutils-vc4/cgen ]; then
+  echo "Setting symlink for CGEN..."
+  pushd "$HERE/binutils-vc4"
+  ln -s ../cgen/cgen .
+  popd
+fi
+
 echo
 echo "*********************"
 echo "* Building binutils *"
@@ -15,7 +26,7 @@ echo
 rm -rf binutils-build
 mkdir binutils-build
 pushd binutils-build
-../binutils-vc4/configure --target=vc4-elf --prefix="$HERE"/prefix --disable-werror --enable-cgen-maint
+../binutils-vc4/configure --target=vc4-elf --prefix="$HERE"/prefix --disable-werror $WITHCGEN
 make $PARALLEL
 make $PARALLEL install
 popd

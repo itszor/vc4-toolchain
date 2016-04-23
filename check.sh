@@ -13,6 +13,17 @@ get_test_results_dir () {
 
 thisdir="$(dirname "$0")"
 thisdir="$(readlink -f "$thisdir")"
+
+if ! [ -x "$thisdir"/resim/vc4emul/vc4emul ]; then
+  set -e
+  echo "Building vc4emul..."
+  pushd "$thisdir"/resim
+  cmake -G "Unix Makefiles"
+  make -j 2
+  popd
+  echo "Done."
+fi
+
 pushd "$thisdir"/gcc-build-2 >& /dev/null
 sed "s,BOARD_DIR_LOCATION,$thisdir/resim/vc4emul," < "$thisdir/resim/vc4emul/site-orig.exp" > "$thisdir/resim/vc4emul/site.exp"
 export DEJAGNU="$thisdir/resim/vc4emul/site.exp"
