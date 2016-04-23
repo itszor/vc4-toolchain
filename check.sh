@@ -27,7 +27,7 @@ fi
 pushd "$thisdir"/gcc-build-2 >& /dev/null
 sed "s,BOARD_DIR_LOCATION,$thisdir/resim/vc4emul," < "$thisdir/resim/vc4emul/site-orig.exp" > "$thisdir/resim/vc4emul/site.exp"
 export DEJAGNU="$thisdir/resim/vc4emul/site.exp"
-export PATH="$thisdir/resim/vc4emul":$PATH
+export PATH="$thisdir/resim/vc4emul":"$thisdir/prefix/bin":$PATH
 make check-gcc RUNTESTFLAGS="--target_board=vc4-sim $*"
 popd >& /dev/null
 resdir=$(get_test_results_dir)
