@@ -71,7 +71,18 @@ $ resim/vc4emul/vc4emul hello.bin 0 0
 Hello world!
 ```
 
-Console output uses an emulated mini-UART, so in theory might work on real hardware also, if you have the right serial cable.
+Console output uses an emulated mini-UART, so will work on real
+hardware also, if you have the right serial cable. To test that, use the
+vc4-sram.ld linker script (or see the "helloworld" directory alongside
+this README file):
+
+```bash
+$ vc4-elf-gcc hello.c -O2 -T vc4-sram.ld -o hello
+$ vc4-elf-objcopy -O binary hello hello.bin
+$ cp hello.bin /path/to/sdcard/bootcode.bin
+```
+
+Now plug in your serial cable, SD card and power, open a terminal emulator, and see the output.
 
 Thanks
 ------
