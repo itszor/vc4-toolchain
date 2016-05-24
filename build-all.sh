@@ -10,11 +10,22 @@ PARALLEL="-j 2"
 WITHCGEN="--enable-cgen-maint"
 # WITHCGEN=
 
+# Set this to false to disable C++ (speed up build a bit).
+WITHCXX=true
+
 if [ "$WITHCGEN" ] && ! [ -h "$HERE"/binutils-vc4/cgen ]; then
   echo "Setting symlink for CGEN..."
   pushd "$HERE/binutils-vc4"
   ln -s ../cgen/cgen .
   popd
+fi
+
+if $WITHCXX; then
+  LANGUAGES="c,c++"
+  EXTRABUILD2OPTS="--with-newlib"
+else
+  LANGUAGES="c"
+  EXTRABUILD2OPTS=
 fi
 
 echo
@@ -74,10 +85,10 @@ rm -rf gcc-build-2
 mkdir gcc-build-2
 pushd gcc-build-2
 ../gcc-vc4/configure --target=vc4-elf --prefix="$HERE"/prefix --disable-nls \
-  --disable-ssp --enable-languages=c --disable-decimal-float \
+  --disable-ssp --enable-languages=$LANGUAGES --disable-decimal-float \
   --disable-threads --disable-libatomic --disable-libitm \
   --disable-libsanitizer --disable-libquadmath --disable-lto \
-  --enable-sjlj-exceptions
+  --enable-sjlj-exceptions $EXTRABUILD2OPTS
 make $PARALLEL
 make $PARALLEL install
 popd
