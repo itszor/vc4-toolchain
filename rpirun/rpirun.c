@@ -210,14 +210,16 @@ main (int argc, char *argv[])
           curstate = RUN_IN_PROGRESS;
           break;
         case RUN_IN_PROGRESS:
-          if (have_line
-              && strncmp (line, "Signature looks OK, starting program!",
-                          37) == 0)
-            ;
-          else if (have_line && strncmp (line, ">>> Test harness", 16) == 0)
-            finished = true;
-          else
-            fputs (line, stdout);
+          if (have_line)
+            {
+              if (strncmp (line, "Signature looks OK, starting program!",
+                           37) == 0)
+                ;
+              else if (strncmp (line, ">>> Test harness", 16) == 0)
+                finished = true;
+              else
+                fputs (line, stdout);
+            }
           break;
         case WAITING:
           break;
