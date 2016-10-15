@@ -79,6 +79,8 @@ main (int argc, char *argv[])
   enum state curstate = UNKNOWN;
   int finished = false;
   bool verbose = false;
+  bool timeout = false;
+  int ok_tries = 5;
 
   while (arg < argc)
     {
@@ -95,6 +97,11 @@ main (int argc, char *argv[])
           verbose = true;
           arg++;
         }
+      else if (strcmp (argv[arg], "-t") == 0)
+	{
+	  timeout = true;
+	  arg++;
+	}
       else
         {
           input = argv[arg++];
@@ -175,9 +182,23 @@ main (int argc, char *argv[])
                 fprintf (stderr, "Everything is awesome.\n");
               curstate = LOAD_CMD;
             }
+          else if (ok_tries > 0)
+            {
+	      usleep (200000);
+              send_command (fd, "?");
+              ok_tries--;
+            }
+          else
+            {
+              fprintf (stderr, "Couldn't start communication with board.\n");
+              finished = true;
+            }
           break;
         case LOAD_CMD:
           {
+	    /* Start timing now!  */
+	    if (timeout)
+	      send_command (fd, "T");
             send_command (fd, "L");
             curstate = LOAD_IN_PROGRESS;
           }

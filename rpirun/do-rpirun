@@ -1,0 +1,4 @@
+#!/bin/bash
+HERE="$(cd "$(dirname "$0")" && pwd)"
+vc4-elf-objcopy -O binary "$1" "$1".bin
+exec "$HERE/rpirun" -t "$1".bin

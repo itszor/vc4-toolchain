@@ -3,6 +3,9 @@
 # DO_TESTS=("check-c" "check-c++")
 DO_TESTS=("check-c")
 
+# TARGETBOARD=vc4-sim
+TARGETBOARD=vc4-teststub
+
 get_test_results_dir () {
   local base
   local n=1
@@ -30,8 +33,8 @@ fi
 pushd "$thisdir"/gcc-build-2 >& /dev/null
 sed "s,BOARD_DIR_LOCATION,$thisdir/resim/vc4emul," < "$thisdir/resim/vc4emul/site-orig.exp" > "$thisdir/resim/vc4emul/site.exp"
 export DEJAGNU="$thisdir/resim/vc4emul/site.exp"
-export PATH="$thisdir/resim/vc4emul":"$thisdir/prefix/bin":$PATH
-make -k "${DO_TESTS[@]}" RUNTESTFLAGS="--target_board=vc4-sim $*"
+export PATH="$thisdir/rpirun":"$thisdir/resim/vc4emul":"$thisdir/prefix/bin":$PATH
+make -k "${DO_TESTS[@]}" RUNTESTFLAGS="--target_board=$TARGETBOARD $*"
 popd >& /dev/null
 resdir=$(get_test_results_dir)
 echo "Copying results to $resdir"
