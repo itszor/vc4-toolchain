@@ -10,8 +10,8 @@ int main(void)
   unsigned starttime = ST_CLO;
   printf("microsecs: %u\n", starttime);
   
-  ST_C0 = starttime + 2000000u;
-  ST_CS |= 1;
+  /*ST_C0 = starttime + 2000000u;
+  ST_CS |= 1;*/
   
   while (ctr < 1000000 * 250)
     {
