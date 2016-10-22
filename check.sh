@@ -3,8 +3,8 @@
 # DO_TESTS=("check-c" "check-c++")
 DO_TESTS=("check-c")
 
-# TARGETBOARD=vc4-sim
-TARGETBOARD=vc4-teststub
+TARGETBOARD=vc4-sim
+# TARGETBOARD=vc4-teststub
 
 get_test_results_dir () {
   local base

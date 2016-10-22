@@ -11,7 +11,7 @@ WITHCGEN="--enable-cgen-maint"
 # WITHCGEN=
 
 # Set this to false to disable C++ (speed up build a bit).
-WITHCXX=false
+WITHCXX=true
 
 if [ "$WITHCGEN" ] && ! [ -h "$HERE"/binutils-vc4/cgen ]; then
   echo "Setting symlink for CGEN..."
