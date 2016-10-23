@@ -80,7 +80,7 @@ main (int argc, char *argv[])
   int finished = false;
   bool verbose = false;
   bool timeout = false;
-  int ok_tries = 5;
+  int ok_tries = 10;
 
   while (arg < argc)
     {
@@ -184,9 +184,12 @@ main (int argc, char *argv[])
             }
           else if (ok_tries > 0)
             {
-	      usleep (200000);
-              send_command (fd, "?");
-              ok_tries--;
+              if (!have_line)
+                {
+	          usleep (200000);
+                  send_command (fd, "?");
+                  ok_tries--;
+                }
             }
           else
             {
@@ -237,6 +240,8 @@ main (int argc, char *argv[])
                            37) == 0)
                 ;
               else if (strncmp (line, ">>> Test harness", 16) == 0)
+                finished = true;
+              else if (strncmp (line, ">>> Resetting", 13) == 0)
                 finished = true;
               else
                 fputs (line, stdout);
