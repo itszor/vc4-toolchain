@@ -13,6 +13,42 @@ WITHCGEN="--enable-cgen-maint"
 # Set this to false to disable C++ (speed up build a bit).
 WITHCXX=true
 
+in_list () {
+  local needle=$1
+  local haystackname=$2
+  local -a haystack
+  eval "haystack=( "\${$haystackname[@]}" )"
+  for x in "${haystack[@]}"; do
+    if [ "$x" = "$needle" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+declare -a BUILDLIST
+BUILDLIST=()
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    binutils|gcc1|newlib|gcc2)
+      BUILDLIST=( "${BUILDLIST[@]}" $1 )
+      ;;
+    -no-c++)
+      WITHCXX=false
+      ;;
+    *)
+      echo "Unknown option '$1'."
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+if [ "${#BUILDLIST}" -eq 0 ]; then
+  BUILDLIST=("binutils" "gcc1" "newlib" "gcc2")
+fi
+
 if [ "$WITHCGEN" ] && ! [ -h "$HERE"/binutils-vc4/cgen ]; then
   echo "Setting symlink for CGEN..."
   pushd "$HERE/binutils-vc4"
@@ -28,6 +64,7 @@ else
   EXTRABUILD2OPTS=
 fi
 
+if in_list binutils BUILDLIST; then
 echo
 echo "*********************"
 echo "* Building binutils *"
@@ -41,7 +78,9 @@ pushd binutils-build
 make $PARALLEL
 make $PARALLEL install
 popd
+fi
 
+if in_list gcc1 BUILDLIST; then
 echo
 echo "************************"
 echo "* Building stage 1 GCC *"
@@ -59,7 +98,9 @@ pushd gcc-build
 make $PARALLEL
 make $PARALLEL install
 popd
+fi
 
+if in_list newlib BUILDLIST; then
 echo
 echo "*****************************"
 echo "* Building Newlib C library *"
@@ -74,7 +115,9 @@ export PATH="$HERE"/prefix/bin:$PATH
 make $PARALLEL
 make $PARALLEL install
 popd
+fi
 
+if in_list gcc2 BUILDLIST; then
 echo
 echo "************************"
 echo "* Building stage 2 GCC *"
@@ -86,9 +129,9 @@ mkdir gcc-build-2
 pushd gcc-build-2
 ../gcc-vc4/configure --target=vc4-elf --prefix="$HERE"/prefix --disable-nls \
   --disable-ssp --enable-languages=$LANGUAGES --disable-decimal-float \
-  --disable-threads --disable-libatomic --disable-libitm \
-  --disable-libsanitizer --disable-libquadmath --disable-lto \
-  --enable-sjlj-exceptions $EXTRABUILD2OPTS
+  --enable-threads --disable-libatomic --disable-libsanitizer \
+  --disable-libquadmath --disable-lto --enable-sjlj-exceptions $EXTRABUILD2OPTS
 make $PARALLEL
 make $PARALLEL install
 popd
+fi
