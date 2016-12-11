@@ -141,7 +141,7 @@ $ rpirun/do-rpirun ./hello
 
 Your program should be transferred over the serial cable, execute on the hardware, and send its (line-buffered) output back to your console. (The `do-rpirun` script is a wrapper that runs `vc4-elf-objcopy` to turn the ELF executable into a flat binary then runs the real `rpirun` program.)
 
-It's also possible to communicate "manually" with the test stub via a terminal emulator (e.g. minicom). Commands (from the host to the test stub) are in the form of single characters, as follows:
+It's also possible to communicate "manually" with the test stub via a terminal emulator (e.g. `minicom`). Commands (from the host to the test stub) are in the form of single characters, as follows:
 
  * `?`: Query connection. Test stub should respond "OK.".
  
