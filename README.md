@@ -120,20 +120,20 @@ Next, install prerequisites (for the `sx` xmodem tool):
 $ apt-get install lrzsz
 ```
 
-Then build the test stub:
+Then build the host-side code that communicates with the test stub:
 
 ```bash
 $ cd rpirun
 $ ./compile.sh
 ```
 
-Next, compile some code to run via this test stub:
+Next, compile some code to run on the test stub:
 
 ```bash
 $ vc4-elf-gcc hello.c -O2 -T vc4-teststub.ld -o hello
 ```
 
-Lastly, plug in your USB serial/UART cable, turn on your Pi, and do:
+Lastly, plug in your USB serial/UART cable and SD card, turn on your Pi, and do:
 
 ```bash
 $ rpirun/do-rpirun ./hello
