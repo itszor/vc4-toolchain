@@ -11,6 +11,7 @@ You can build the toolchain as a cross-compiler. I've only tried doing this from
 ```bash
 $ apt-get build-dep gcc-6
 $ apt-get install cmake guile-1.8 libqt4-dev
+$ apt-get install texinfo libgmp-dev libmpc-dev libmpfr-dev
 ```
 
 The binutils port is now based on CGEN: to work with that, you'll need Guile 1.8 also. For the simulator, you'll need to install `cmake` (and maybe QT4 development libraries).
