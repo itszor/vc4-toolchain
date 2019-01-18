@@ -19,7 +19,7 @@ The binutils port is now based on CGEN: to work with that, you'll need Guile 1.8
 Now run the following command to retrieve all the submodules you need:
 
 ```bash
-$ git clone --recursive https://github.com/puppeh/vc4-toolchain.git
+$ git clone --recursive https://github.com/itzor/vc4-toolchain.git
 ```
 
 Then build the compiler with:
