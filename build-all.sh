@@ -7,8 +7,8 @@ HERE="$(cd "$SCRIPTDIR" && pwd)"
 PARALLEL="-j 2"
 
 # Remove this if you don't want to mess with CGEN.
-WITHCGEN="--enable-cgen-maint"
-# WITHCGEN=
+# WITHCGEN="--enable-cgen-maint"
+WITHCGEN=
 
 # Set this to false to disable C++ (speed up build a bit).
 WITHCXX=true
